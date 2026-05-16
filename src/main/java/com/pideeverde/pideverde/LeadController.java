@@ -39,7 +39,7 @@ public class LeadController {
 
     private void notificarCRM(Lead lead) {
         try {
-            String token = "TU_TOKEN_HUBSPOT"; 
+            String token = System.getenv("HUBSPOT_TOKEN"); 
             String json = String.format("{\"properties\": {\"firstname\": \"%s\", \"email\": \"%s\", \"company\": \"%s\"}}", lead.getNombre(), lead.getCorreo(), lead.getFacultad());
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -53,7 +53,7 @@ public class LeadController {
 
     private void notificarVentas(Lead lead) {
         try {
-            String token = "TU_TOKEN_SENDGRID"; 
+            String token = System.getenv("SENDGRID_TOKEN"); 
             String json = String.format("{\"personalizations\": [{\"to\": [{\"email\": \"ventas@pideverde.mx\"}]}],\"from\": {\"email\": \"sistema@pideverde.mx\"},\"subject\": \"Nuevo Lead: %s\",\"content\": [{\"type\": \"text/plain\", \"value\": \"Facultad: %s\"}]}", lead.getNombre(), lead.getFacultad());
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
