@@ -1,5 +1,6 @@
 package com.pideeverde.pideverde;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.net.http.HttpResponse;
 @CrossOrigin(origins = "*") 
 @RestController
 @RequestMapping("/api/leads")
+@CrossOrigin(origins = "*") // <-- Esta es la llave maestra que desbloquea la conexión
 public class LeadController {
 
     @Autowired
