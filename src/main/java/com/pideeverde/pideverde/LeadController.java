@@ -57,7 +57,7 @@ public class LeadController {
             String token = System.getenv("SENDGRID_TOKEN"); 
             
             // PON TUS CORREOS REALES AQUÍ ABAJO (En "to" a dónde llega, en "from" el que verificaste en SendGrid)
-            String json = String.format("{\"personalizations\": [{\"to\": [{\"email\": \"TU_CORREO_REAL@gmail.com\"}]}],\"from\": {\"email\": \"TU_CORREO_VERIFICADO@gmail.com\"},\"subject\": \"Nuevo Lead: %s\",\"content\": [{\"type\": \"text/plain\", \"value\": \"Facultad: %s\"}]}", lead.getNombre(), lead.getFacultad());
+            String json = String.format("{\"personalizations\": [{\"to\": [{\"email\": \"pideverde123@gmail.com\"}]}],\"from\": {\"email\": \"pideverde123@gmail.com\"},\"subject\": \"Nuevo Lead: %s\",\"content\": [{\"type\": \"text/plain\", \"value\": \"Facultad: %s\"}]}", lead.getNombre(), lead.getFacultad());
             
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
