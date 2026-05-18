@@ -10,10 +10,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-@CrossOrigin(origins = "*") 
 @RestController
 @RequestMapping("/api/leads")
-@CrossOrigin(origins = "*") // <-- Esta es la llave maestra que desbloquea la conexión
+@CrossOrigin(origins = "*") // <-- Dejamos solo UNA llave maestra
 public class LeadController {
 
     @Autowired
@@ -56,7 +55,10 @@ public class LeadController {
     private void notificarVentas(Lead lead) {
         try {
             String token = System.getenv("SENDGRID_TOKEN"); 
-            String json = String.format("{\"personalizations\": [{\"to\": [{\"email\": \"ventas@pideverde.mx\"}]}],\"from\": {\"email\": \"sistema@pideverde.mx\"},\"subject\": \"Nuevo Lead: %s\",\"content\": [{\"type\": \"text/plain\", \"value\": \"Facultad: %s\"}]}", lead.getNombre(), lead.getFacultad());
+            
+            // PON TUS CORREOS REALES AQUÍ ABAJO (En "to" a dónde llega, en "from" el que verificaste en SendGrid)
+            String json = String.format("{\"personalizations\": [{\"to\": [{\"email\": \"TU_CORREO_REAL@gmail.com\"}]}],\"from\": {\"email\": \"TU_CORREO_VERIFICADO@gmail.com\"},\"subject\": \"Nuevo Lead: %s\",\"content\": [{\"type\": \"text/plain\", \"value\": \"Facultad: %s\"}]}", lead.getNombre(), lead.getFacultad());
+            
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://api.sendgrid.com/v3/mail/send"))
