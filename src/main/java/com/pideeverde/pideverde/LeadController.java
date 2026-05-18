@@ -53,19 +53,28 @@ public class LeadController {
     }
 
     private void notificarVentas(Lead lead) {
-        try {
-            String token = System.getenv("SENDGRID_TOKEN"); 
-            
-            // PON TUS CORREOS REALES AQUÍ ABAJO (En "to" a dónde llega, en "from" el que verificaste en SendGrid)
-            String json = String.format("{\"personalizations\": [{\"to\": [{\"email\": \"pideverde123@gmail.com\"}]}],\"from\": {\"email\": \"pideverde123@gmail.com\"},\"subject\": \"Nuevo Lead: %s\",\"content\": [{\"type\": \"text/plain\", \"value\": \"Facultad: %s\"}]}", lead.getNombre(), lead.getFacultad());
-            
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://api.sendgrid.com/v3/mail/send"))
-                    .header("Content-Type", "application/json")
-                    .header("Authorization", "Bearer " + token)
-                    .POST(HttpRequest.BodyPublishers.ofString(json)).build();
-            client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception ignored) {}
-    }
+    try {
+        String token = System.getenv("SENDGRID_TOKEN"); 
+        
+        String json = String.format("{\"personalizations\": [{\"to\": [{\"email\": \"pideverde123@gmail.com\"}]}],\"from\": {\"email\": \"pideverde123@gmail.com\"},\"subject\": \"Nuevo Lead: %s\",\"content\": [{\"type\": \"text/plain\", \"value\": \"Facultad: %s\"}]}", lead.getNombre(), lead.getFacultad());
+        
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://api.sendgrid.com/v3/mail/send"))
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + token)
+                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .build();
+        
+        // CAMBIO CLAVE: Cambiamos sendAsync por send (Síncrono)
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        
+        // Imprimimos el código de respuesta en los Logs de Render para auditar
+        System.out.println("=== RESPUESTA DE SENDGRID CÓDIGO: " + response.statusCode() + " ===");
+        System.out.println("Cuerpo de respuesta: " + response.body());
+        
+    } catch (Exception e) {
+        System.out.println("=== ERROR CRÍTICO DE SENDGRID ===");
+        e.printStackTrace(); 
+    }       
 }
