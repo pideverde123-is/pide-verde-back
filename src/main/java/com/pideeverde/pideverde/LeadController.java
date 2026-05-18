@@ -76,5 +76,6 @@ public class LeadController {
     } catch (Exception e) {
         System.out.println("=== ERROR CRÍTICO DE SENDGRID ===");
         e.printStackTrace(); 
+        }
     }       
 }
