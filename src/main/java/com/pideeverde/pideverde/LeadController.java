@@ -1,5 +1,5 @@
 package com.pideeverde.pideverde;
-
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +33,9 @@ public class LeadController {
             notificarVentas(lead);
             
             return ResponseEntity.ok("{\"message\": \"Guardado correctamente\"}");
+        } catch (DataIntegrityViolationException e) { 
+            // error para correo modificado o ya registrado
+            return ResponseEntity.badRequest().body("{\"message\": \"El correo ingresado ya se encuentra registrado.\"}");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("{\"message\": \"Error en servidor\"}");
         }
