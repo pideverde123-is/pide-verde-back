@@ -62,12 +62,12 @@ public class LeadController {
         String correoVerificado = "pideverde123@gmail.com"; // Tu correo verificado en SendGrid
 
         // =================================================================
-        // CORREO 1: NOTIFICACIÓN INTERNA PARA TI
+        // CORREO 1: NOTIFICACIÓN INTERNA PARA TI Y AREA COMERCIAL
         // =================================================================
         String jsonParaMi = String.format(
-            "{\"personalizations\": [{\"to\": [{\"email\": \"pideverde123@gmail.com\"}]}],\"from\": {\"email\": \"%s\"},\"subject\": \"¡Nuevo Lead: %s!\",\"content\": [{\"type\": \"text/plain\", \"value\": \"Nombre: %s\\nCorreo: %s\\nFacultad: %s\"}]}", 
-            correoVerificado, lead.getNombre(), lead.getNombre(), lead.getCorreo(), lead.getFacultad()
-        );
+    "{\"personalizations\": [{\"to\": [{\"email\": \"pideverde123@gmail.com\"}, {\"email\": \"jolopezhu1458@uaemex.mx\"}]}],\"from\": {\"email\": \"%s\"},\"subject\": \"¡Nuevo Lead: %s!\",\"content\": [{\"type\": \"text/plain\", \"value\": \"Nombre: %s\\nCorreo: %s\\nFacultad: %s\"}]}", 
+    correoVerificado, lead.getNombre(), lead.getNombre(), lead.getCorreo(), lead.getFacultad()
+);
 
         HttpRequest requestParaMi = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.sendgrid.com/v3/mail/send"))
