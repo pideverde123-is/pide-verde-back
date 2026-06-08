@@ -131,7 +131,7 @@ public class LeadController {
             // ÚNICO ENVÍO: NOTIFICACIÓN INTERNA PARA EL EQUIPO COMERCIAL
             // =================================================================
             String jsonParaMi = String.format(
-                "{\"personalizations\": [{\"to\": [{\"email\": \"pideverde123@gmail.com\"}]}],\"from\": {\"email\": \"%s\"},\"subject\": \"¡Nuevo Lead: %s!\",\"content\": [{\"type\": \"text/plain\", \"value\": \"Nombre: %s\\nCorreo: %s\\nFacultad: %s\"}]}", 
+                "{\"personalizations\": [{\"to\": [{\"email\": \"jolopezhu1458@uaemex.mx\"}]}],\"from\": {\"email\": \"%s\"},\"subject\": \"¡Nuevo Lead: %s!\",\"content\": [{\"type\": \"text/plain\", \"value\": \"Nombre: %s\\nCorreo: %s\\nFacultad: %s\"}]}", 
                 correoVerificado, lead.getNombre(), lead.getNombre(), lead.getCorreo(), lead.getFacultad()
             );
 
